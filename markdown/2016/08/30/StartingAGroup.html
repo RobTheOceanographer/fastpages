@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Tips For Running a Data Science Group | Rob Johnson</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Tips For Running a Data Science Group" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I’ve built and ran four data science groups/meet ups in the past 10 years or so. Three of the four failed, but each failed in a different way and for different reasons. I now have a list based on this experience and on that one semi-successful group. This list is evolving and is by no means a complete list nor is it suitable for all cases or all people – pick and choose whatever you like from it and ignore the rest." />
+<meta property="og:description" content="I’ve built and ran four data science groups/meet ups in the past 10 years or so. Three of the four failed, but each failed in a different way and for different reasons. I now have a list based on this experience and on that one semi-successful group. This list is evolving and is by no means a complete list nor is it suitable for all cases or all people – pick and choose whatever you like from it and ignore the rest." />
+<link rel="canonical" href="https://robtheoceanographer.com/markdown/2016/08/30/StartingAGroup.html" />
+<meta property="og:url" content="https://robtheoceanographer.com/markdown/2016/08/30/StartingAGroup.html" />
+<meta property="og:site_name" content="Rob Johnson" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-08-30T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Tips For Running a Data Science Group" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2016-08-30T00:00:00-05:00","datePublished":"2016-08-30T00:00:00-05:00","description":"I’ve built and ran four data science groups/meet ups in the past 10 years or so. Three of the four failed, but each failed in a different way and for different reasons. I now have a list based on this experience and on that one semi-successful group. This list is evolving and is by no means a complete list nor is it suitable for all cases or all people – pick and choose whatever you like from it and ignore the rest.","headline":"Tips For Running a Data Science Group","mainEntityOfPage":{"@type":"WebPage","@id":"https://robtheoceanographer.com/markdown/2016/08/30/StartingAGroup.html"},"url":"https://robtheoceanographer.com/markdown/2016/08/30/StartingAGroup.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://robtheoceanographer.com/feed.xml" title="Rob Johnson" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-63550083-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-63550083-1');
+</script>
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Rob Johnson</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Tips For Running a Data Science Group</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2016-08-30T00:00:00-05:00" itemprop="datePublished">
+        Aug 30, 2016
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#markdown">markdown</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h5"><a href="#these-are-just-a-few-notes-of-what-works-for-me">These are just a few notes of what works for me:</a></li>
+</ul><p>I’ve built and ran four data science groups/meet ups in the past 10 years or so. Three of the four failed, but each failed in a different way and for different reasons. I now have a list based on this experience and on that one semi-successful group. This list is evolving and is by no means a complete list nor is it suitable for all cases or all people – pick and choose whatever you like from it and ignore the rest.</p>
+
+<h5 id="these-are-just-a-few-notes-of-what-works-for-me">
+<a class="anchor" href="#these-are-just-a-few-notes-of-what-works-for-me" aria-hidden="true"><span class="octicon octicon-link"></span></a>These are just a few notes of what works for me:</h5>
+
+<ol>
+  <li>
+    <p><strong><em>Silence Kills!</em></strong> - Communicate with everyone who bothers to listen. The more people that hear about you and your group the merrier the group will be. For the group to work you have to be in peoples minds and remembered. If people don’t hear from you for a while they will assume you’ve been hit by a bus or the group has failed or both.</p>
+  </li>
+  <li>
+    <p><strong><em>Advertise</em></strong> – Put the group on Twitter and Facebook and Instagram and Slack and everywhere else you can think of! Get your event notifications posted on every email list you can find and spam all of the groups you’re in. “Fight Club” rules do not apply here – you must talk about your group if you want new people attending and if you don’t get new people attending, from time to time, the group will become stale and sour after just a few short months.</p>
+  </li>
+  <li>
+    <p><strong><em>Advertise Really Well</em></strong> – Post notification on many platforms in plain language with lots of information. Don’t rely on someone knowing you personally or finding your tiny wiki page or being on the right email lists at the right time. The person you would most like to be at your group is the person doing the cool stuff that you don’t know about – make it easy for them to find you. Include all the vital information – location, time, duration, accessing the space, where to find more info on the topic… etc. Also, do yourself a favour and Google: “Effective Social Media Tactics”.</p>
+  </li>
+  <li>
+    <p><strong><em>Build Your Own Site</em></strong> -  Build yourself a modern and easy to use webpage. Update it all the time. Link it to your social media stuff. Post upcoming events as soon as you know about them. Post agendas for these events – include useful info like what language/tool/package/technique the group will discuss etc etc. Maintain this webpage  actively. Do search engine optimisation – people will google you and you want them to find you.</p>
+  </li>
+  <li>
+    <p><strong><em>Build Stability, Clarity, and Certainty</em></strong> – Keep a good archive of past events. People like to look through them for that thing they missed or to find out what your group is like before committing time to attend. Post agendas and time tables of what is coming up. Let people know exactly what they can expect and how much time etc you are asking them for. Post early, post often. Avoid using acronyms and if you do provide a link to Wikipedia or something that explains them. Don’t reference or make jokes about people/orgs or newbs. Show tolerance for all levels and abilities. Host newb events to draw out the shy coders and those who are suffering at the hands of our old friend the <a href="https://en.wikipedia.org/wiki/Impostor_syndrome">imposter syndrome</a>. Accept all points of view and don’t allow the discussions to turn into an argument of “that’s not how I would’ve done it” - get your loudest members to swallow their pride and just say yes every now and again.</p>
+  </li>
+  <li>
+    <p><strong><em>Be Regular</em></strong> - Make your group a regular part of peoples calendars. Make it a routine. Find a cycle and stick to it. Never miss a scheduled meet up date. Never. If someone shows up and the thing isn’t on and there’s no info on the web/email then they are not coming back. Ever. Do this too often and your group will devolve into just you and your mate skiving off for a coffee every month.</p>
+  </li>
+  <li>
+    <p><strong><em>Be Convenient</em></strong> - Organise the time of your group so it’s easy for people to attend - not before 10am and not after 5pm and not on weekends is a good starting rule. Find out what the standing meetings are and avoid them. Make the venue easy to get to and find. Don’t hold it off site.</p>
+  </li>
+  <li>
+    <p><strong><em>Be a Good Community Citizen</em></strong> - look up other groups in the area and invite them over for a joint session. Make sure your events don’t clash with their events or other events in the building. Talk to them. Gain networks of potential speakers and contacts for your members. Acknowledge people around you for their efforts and achievements.</p>
+  </li>
+  <li>
+    <p><strong><em>Get Feedback</em></strong> – Ask for feedback from the people who actually bother to take the time to show up. Act on that feedback.</p>
+  </li>
+</ol>
+
+<p>Good luck, share your experience, and above all have fun</p>
+
+  </div><a class="u-url" href="/markdown/2016/08/30/StartingAGroup.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>My blog.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/RobTheOceanographer" target="_blank" title="RobTheOceanographer"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/JohnsonRob" target="_blank" title="JohnsonRob"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

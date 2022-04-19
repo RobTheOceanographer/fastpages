@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>A Test Driven Dev Example | Rob Johnson</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="A Test Driven Dev Example" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This blog is a small example of test-driven development in the interactive development environment." />
+<meta property="og:description" content="This blog is a small example of test-driven development in the interactive development environment." />
+<link rel="canonical" href="https://robtheoceanographer.com/markdown/2017/08/28/TDDexample.html" />
+<meta property="og:url" content="https://robtheoceanographer.com/markdown/2017/08/28/TDDexample.html" />
+<meta property="og:site_name" content="Rob Johnson" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-08-28T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="A Test Driven Dev Example" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2017-08-28T00:00:00-05:00","datePublished":"2017-08-28T00:00:00-05:00","description":"This blog is a small example of test-driven development in the interactive development environment.","headline":"A Test Driven Dev Example","mainEntityOfPage":{"@type":"WebPage","@id":"https://robtheoceanographer.com/markdown/2017/08/28/TDDexample.html"},"url":"https://robtheoceanographer.com/markdown/2017/08/28/TDDexample.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://robtheoceanographer.com/feed.xml" title="Rob Johnson" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-63550083-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-63550083-1');
+</script>
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Rob Johnson</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">A Test Driven Dev Example</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2017-08-28T00:00:00-05:00" itemprop="datePublished">
+        Aug 28, 2017
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#markdown">markdown</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#how-do-you-code">How do you code?</a></li>
+<li class="toc-entry toc-h2"><a href="#take-away">Take away:</a></li>
+<li class="toc-entry toc-h2"><a href="#why-test">Why Test?</a></li>
+<li class="toc-entry toc-h2"><a href="#test-driven-development">Test Driven Development</a></li>
+<li class="toc-entry toc-h1"><a href="#the-example">The example:</a></li>
+<li class="toc-entry toc-h1"><a href="#non-test-driven-development">Non-test driven development</a></li>
+<li class="toc-entry toc-h1"><a href="#defensive-dev-version">Defensive dev version</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#my-plan">My Plan</a></li>
+<li class="toc-entry toc-h3"><a href="#my-pre-defined-tests">My Pre-defined Tests</a></li>
+<li class="toc-entry toc-h3"><a href="#redo-the-tests-to-be-more-useful-and-verbose">Redo the tests to be more useful and verbose</a></li>
+<li class="toc-entry toc-h3"><a href="#now-start-coding-to-make-the-tests-pass">Now start coding to make the tests pass</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#start-to-refactor-to-actually-work">start to refactor to actually work:</a></li>
+<li class="toc-entry toc-h4"><a href="#now-put-a-piece-of-my-data-and-my-function-together">Now put a piece of my data and my function together</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#now-i-can-use-this-function-in-anger-on-the-whole-dataset">Now i can use this function in anger on the whole dataset</a></li>
+</ul>
+</li>
+</ul><h2 id="how-do-you-code">
+<a class="anchor" href="#how-do-you-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>How do you code?</h2>
+<p>Research <a href="https://software-carpentry.org/files/bib/secse-survey-2009.pdf">(see here)</a> shows that:</p>
+<ul>
+  <li>1) the knowledge required to develop and use scientific software is primarily acquired from peers and through self-study, rather than from formal education and training;</li>
+  <li>2) the number of scientists using supercomputers is small compared to the number using desktop or intermediate computers;</li>
+  <li>3) most scientists rely primarily on software with a large user base;</li>
+  <li>4) while many scientists believe that software testing is important, a smaller number believe they have sufficient understanding about testing concepts;</li>
+</ul>
+
+<p>This blog is a small example of test-driven development and will hopefully help address point 4.</p>
+
+<h2 id="take-away">
+<a class="anchor" href="#take-away" aria-hidden="true"><span class="octicon octicon-link"></span></a>Take away:</h2>
+<p>If you only take one thing from this post it’s that everytime you do any coding ask yourself two questions:</p>
+<ul>
+  <li>How do I (and you) trust this piece of code?</li>
+  <li>How do I (and you) know it is doing what intended it to do?</li>
+</ul>
+
+<h2 id="why-test">
+<a class="anchor" href="#why-test" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why Test?</h2>
+<p>“We believe that software is just another kind of experimental apparatus and should be built, checked, and used as carefully as any physical apparatus. However, while most scientists are careful to validate their laboratory and field equipment, most do not know how reliable their software is.” <a href="http://journals.plos.org/plosbiology/article/file?id=10.1371/journal.pbio.1001745&amp;type=printable">source</a></p>
+
+<p>You wouldn’t use an instrument that hasn’t been calibrated but we seem to have no problem using code without any check or balances at all.</p>
+
+<h2 id="test-driven-development">
+<a class="anchor" href="#test-driven-development" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test Driven Development</h2>
+
+<p>Test-driven Development (TDD) is a procedure that takes the process of writing code and the writing tests for it and flips it on it’s head. It advocates that you write the tests first and the least amount of code possible to pass these tests second.</p>
+
+<p>Before you write a single line of a function, you first write the test for that function.</p>
+
+<p>After you’ve written the test you can then write the smallest amount of code needed to pass that test. If you want to do more or add more functionality you must first write another test and so on repeating the test-then-implement process until you have working code - often with as much testing code as actual code.</p>
+
+<p>Most of the online info about TDD shows examples using testing harnesses and automated testing libraries. when i was starting out i found these very hard to follow and to use. Most scientist develop interactively in through an ide or terminal and so here i want to provide an example that can implement the principles of TDD in this framework.</p>
+
+<h1 id="the-example">
+<a class="anchor" href="#the-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>The example:</h1>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+</code></pre></div></div>
+<h1 id="non-test-driven-development">
+<a class="anchor" href="#non-test-driven-development" aria-hidden="true"><span class="octicon octicon-link"></span></a>Non-test driven development</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load my data.
+</span><span class="n">some_data</span><span class="o">=</span><span class="n">pandas</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'simple_data.csv'</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">','</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># divide column two by 2.0.
+</span><span class="n">some_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mf">2.0</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    ---------------------------------------------------------------------------
+
+    TypeError                                 Traceback (most recent call last)
+
+    &lt;ipython-input-3-15ba6180a4ae&gt; in &lt;module&gt;()
+          1 # divide column two by 2.0.
+    ----&gt; 2 some_data[1]/2.0
+
+...
+
+    TypeError: unsupported operand type(s) for /: 'str' and 'float'
+</code></pre></div></div>
+
+<p>####<strong>_ We are already starting to run into errors that are making me go back and troubleshoot/debug._</strong></p>
+
+<h1 id="defensive-dev-version">
+<a class="anchor" href="#defensive-dev-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Defensive dev version</h1>
+
+<h3 id="my-plan">
+<a class="anchor" href="#my-plan" aria-hidden="true"><span class="octicon octicon-link"></span></a>My Plan</h3>
+<p>1) Load data</p>
+
+<p>Use my knowledge of the dataset to write a test upfront that will all me to be certain that the data has loaded properly.</p>
+
+<p>2) Divide the second column of data by 2.</p>
+
+<p>This will require a function that can do the math and then the application of that function to my data</p>
+
+<h3 id="my-pre-defined-tests">
+<a class="anchor" href="#my-pre-defined-tests" aria-hidden="true"><span class="octicon octicon-link"></span></a>My Pre-defined Tests</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 1) loading of data.
+# I know that the data should have two columns and 39 rows when loaded so lets test that.
+</span><span class="n">some_data</span><span class="p">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">39</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$    False
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 2) I know that when I divide the number 5 I should get 2.5 so lets test the divide function using that.
+</span><span class="n">divide_by_two</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="mf">2.5</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    ---------------------------------------------------------------------------
+
+    NameError                                 Traceback (most recent call last)
+
+    &lt;ipython-input-5-c169179b0f66&gt; in &lt;module&gt;()
+          1 # 2) I know that when I divide the number 5 I should get 2.5 so lets test the divide function using that.
+    ----&gt; 2 divide_by_two(5) == 2.5
+
+
+    NameError: name 'divide_by_two' is not defined
+</code></pre></div></div>
+
+<h3 id="redo-the-tests-to-be-more-useful-and-verbose">
+<a class="anchor" href="#redo-the-tests-to-be-more-useful-and-verbose" aria-hidden="true"><span class="octicon octicon-link"></span></a>Redo the tests to be more useful and verbose</h3>
+
+<p>Nicer and more readble way to write tests like these is to use some inbuilt tools.</p>
+
+<p>One of the easiest and most acessible is the <em><code class="language-plaintext highlighter-rouge">assert</code></em> statement. It is designed to catch conditions that should never occur in your code and to allow your code to stop at that point and return you a sensisble message.</p>
+
+<ul>
+  <li>Python has <code class="language-plaintext highlighter-rouge">assert()</code>, http://swcarpentry.github.io/python-novice-inflammation/08-defensive/</li>
+  <li>R has <code class="language-plaintext highlighter-rouge">assert()</code> but it’s in a package called <code class="language-plaintext highlighter-rouge">testit</code> (https://cran.rstudio.com/web/packages/testit/index.html),</li>
+  <li>Matlab has <code class="language-plaintext highlighter-rouge">assert()</code> but i don’t know how to use it…</li>
+</ul>
+
+<p>In python the basics of assert are:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assert x &gt;= 0, 'x is less than zero'
+</code></pre></div></div>
+<p>when x is less than zero the logic of <code class="language-plaintext highlighter-rouge">x &gt;= 0</code> will return false and an assert error will be raised printing the message that appears after the comma.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 1) loading of data.
+</span><span class="k">assert</span> <span class="n">some_data</span><span class="p">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">39</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="s">"The data hasn't loaded properly. Size is not 39 x 2"</span>
+
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    ---------------------------------------------------------------------------
+
+    AssertionError                            Traceback (most recent call last)
+
+    &lt;ipython-input-6-b2d7fe176e23&gt; in &lt;module&gt;()
+          1 # 1) loading of data.
+    ----&gt; 2 assert some_data.shape == (39,2), "The data hasn't loaded properly. Size is not 39 x 2"
+
+
+    AssertionError: The data hasn't loaded properly. Size is not 39 x 2
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 2) I know that when i divide the number 5 i should get 2.5 so lets test the divide function using that.
+</span><span class="k">assert</span> <span class="n">divide_by_two</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="mf">2.5</span><span class="p">,</span> <span class="s">"The divide_by_two function did not return 2.5 when given 5."</span>
+
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    ---------------------------------------------------------------------------
+
+    NameError                                 Traceback (most recent call last)
+
+    &lt;ipython-input-7-533c1c115487&gt; in &lt;module&gt;()
+          1 # 2) I know that when i divide the number 5 i should get 2.5 so lets test the divide function using that.
+    ----&gt; 2 assert divide_by_two(5) == 2.5, "The divide_by_two function did not return 2.5 when given 5."
+
+
+    NameError: name 'divide_by_two' is not defined
+</code></pre></div></div>
+
+<h3 id="now-start-coding-to-make-the-tests-pass">
+<a class="anchor" href="#now-start-coding-to-make-the-tests-pass" aria-hidden="true"><span class="octicon octicon-link"></span></a>Now start coding to make the tests pass</h3>
+<ul>
+  <li>the idea is to write as little as possible to make the test pass.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">some_data</span> <span class="o">=</span> <span class="n">numpy</span><span class="p">.</span><span class="n">empty</span><span class="p">([</span><span class="mi">39</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">divide_by_two</span><span class="p">(</span><span class="n">vals</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">2.5</span>
+</code></pre></div></div>
+
+<h4 id="start-to-refactor-to-actually-work">
+<a class="anchor" href="#start-to-refactor-to-actually-work" aria-hidden="true"><span class="octicon octicon-link"></span></a>start to refactor to actually work:</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">some_data</span> <span class="o">=</span> <span class="n">pandas</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'simple_data.csv'</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">','</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">some_data</span><span class="p">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">39</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="s">"The data hasn't loaded properly. Size is not 39 x 2"</span>
+
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">divide_by_two</span><span class="p">(</span><span class="n">vals</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">vals</span><span class="o">/</span><span class="mf">2.0</span>
+
+<span class="k">assert</span> <span class="n">divide_by_two</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="mf">2.5</span><span class="p">,</span> <span class="s">"The divide_by_two function did not return 2.5 when given 5."</span>
+</code></pre></div></div>
+
+<h4 id="now-put-a-piece-of-my-data-and-my-function-together">
+<a class="anchor" href="#now-put-a-piece-of-my-data-and-my-function-together" aria-hidden="true"><span class="octicon octicon-link"></span></a>Now put a piece of my data and my function together</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 3) Now test the two things together.
+</span>
+<span class="c1"># I know that the third number in my data is 4 and so the divide function should return 2.
+</span><span class="k">assert</span> <span class="n">some_data</span><span class="p">.</span><span class="n">sample_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">,</span> <span class="s">"The data in the third rows of col 2 is no longer 4..."</span>
+
+<span class="k">assert</span> <span class="n">divide_by_two</span><span class="p">(</span><span class="n">some_data</span><span class="p">.</span><span class="n">sample_data</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s">"The divide_by_two function did not return 2 when given the 3rd element of some_data.sample_data"</span>
+
+
+
+</code></pre></div></div>
+
+<h3 id="now-i-can-use-this-function-in-anger-on-the-whole-dataset">
+<a class="anchor" href="#now-i-can-use-this-function-in-anger-on-the-whole-dataset" aria-hidden="true"><span class="octicon octicon-link"></span></a>Now i can use this function in anger on the whole dataset</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">divide_by_two</span><span class="p">(</span><span class="n">some_data</span><span class="p">.</span><span class="n">sample_data</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    0            0.5
+    1            1.5
+    2            2.0
+    3            3.5
+    4            5.5
+    5            9.0
+    6           14.5
+    7           23.5
+    8           38.0
+    9           61.5
+    10          99.5
+    11         161.0
+    12         260.5
+    13         421.5
+    14         682.0
+    15        1103.5
+    16        1785.5
+    17        2889.0
+    18        4674.5
+    19        7563.5
+    20       12238.0
+    21       19801.5
+    22       32039.5
+    23       51841.0
+    24       83880.5
+    25      135721.5
+    26      219602.0
+    27      355323.5
+    28      574925.5
+    29      930249.0
+    30     1505174.5
+    31     2435423.5
+    32     3940598.0
+    33     6376021.5
+    34    10316619.5
+    35    16692641.0
+    36    27009260.5
+    37    43701901.5
+    38    70711162.0
+    Name: sample_data, dtype: float64
+</code></pre></div></div>
+
+  </div><a class="u-url" href="/markdown/2017/08/28/TDDexample.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>My blog.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/RobTheOceanographer" target="_blank" title="RobTheOceanographer"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/JohnsonRob" target="_blank" title="JohnsonRob"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

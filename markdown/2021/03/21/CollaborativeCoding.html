@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Collaborative Coding with Git &amp; GitLab | Rob Johnson</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Collaborative Coding with Git &amp; GitLab" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I&#39;ve been asked by more than one person how to use git and merge requests for collaborative coding. Here are my notes for me to refer back to later and to point people to when i teach them how to do this." />
+<meta property="og:description" content="I&#39;ve been asked by more than one person how to use git and merge requests for collaborative coding. Here are my notes for me to refer back to later and to point people to when i teach them how to do this." />
+<link rel="canonical" href="https://robtheoceanographer.com/markdown/2021/03/21/CollaborativeCoding.html" />
+<meta property="og:url" content="https://robtheoceanographer.com/markdown/2021/03/21/CollaborativeCoding.html" />
+<meta property="og:site_name" content="Rob Johnson" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-21T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Collaborative Coding with Git &amp; GitLab" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2021-03-21T00:00:00-05:00","datePublished":"2021-03-21T00:00:00-05:00","description":"I&#39;ve been asked by more than one person how to use git and merge requests for collaborative coding. Here are my notes for me to refer back to later and to point people to when i teach them how to do this.","headline":"Collaborative Coding with Git &amp; GitLab","mainEntityOfPage":{"@type":"WebPage","@id":"https://robtheoceanographer.com/markdown/2021/03/21/CollaborativeCoding.html"},"url":"https://robtheoceanographer.com/markdown/2021/03/21/CollaborativeCoding.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://robtheoceanographer.com/feed.xml" title="Rob Johnson" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-63550083-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-63550083-1');
+</script>
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Rob Johnson</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Collaborative Coding with Git &amp; GitLab</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-03-21T00:00:00-05:00" itemprop="datePublished">
+        Mar 21, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      18 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#markdown">markdown</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#what-and-why">What and Why?</a></li>
+<li class="toc-entry toc-h2"><a href="#how">How?</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#creating-an-repository">Creating an repository</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#setup">Setup</a></li>
+<li class="toc-entry toc-h4"><a href="#create-something">Create something</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#tracking-your-work">Tracking your work</a></li>
+<li class="toc-entry toc-h3"><a href="#history-and-how-to-undo-it">History and how to undo-it</a>
+<ul>
+<li class="toc-entry toc-h5"><a href="#word-of-warning">Word of warning…</a></li>
+<li class="toc-entry toc-h4"><a href="#completely-reverting-a-committed-change">Completely reverting a committed change</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#ignore-stuff">Ignore stuff</a></li>
+<li class="toc-entry toc-h3"><a href="#remotes">Remotes</a></li>
+<li class="toc-entry toc-h3"><a href="#collaborating">Collaborating</a>
+<ul>
+<li class="toc-entry toc-h5"><a href="#a-basic-collaborative-workflow">A Basic Collaborative Workflow:</a></li>
+<li class="toc-entry toc-h4"><a href="#branching">Branching</a>
+<ul>
+<li class="toc-entry toc-h5"><a href="#creating-branches">Creating branches</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h4"><a href="#merging--review">Merging &amp; Review</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#acknowledgments">Acknowledgments</a></li>
+</ul><p>I’ve been asked by more than one person about how to use git and merge requests for collaborative scientific coding. Here are my notes for me to refer back to later and for me to point people to when I spend time teaching them how to do this.</p>
+
+<h2 id="what-and-why">
+<a class="anchor" href="#what-and-why" aria-hidden="true"><span class="octicon octicon-link"></span></a>What and Why?</h2>
+<p>Version control is the <em>lab notebook</em> of the digital world: it’s what professionals use to keep track of what they’ve done and to collaborate. Every large software development project relies on version control, and most scientists and engineers use it for their work as well. But, it isn’t just for software: books, papers, small data sets, and anything that changes over time or needs to be shared can and should be stored in some sort of version control system.</p>
+
+<p>A version control system keeps track of these changes for us by creating different versions of our files. It allows us to decide which changes will be made to the next version (each record of these changes is called a <em>commit</em>), and keeps useful metadata about them. The complete history of commits for a particular project and their metadata make up a <em>repository</em>. Repositories can be kept in sync across different computers which facilitates collaboration among different people.</p>
+
+<p>Version control is an unlimited ‘undo’ button, but it also allows many people to work in parallel.</p>
+<h2 id="how">
+<a class="anchor" href="#how" aria-hidden="true"><span class="octicon octicon-link"></span></a>How?</h2>
+<p>Ok, so how do we actually do this?
+At the moment most people use <a href="https://en.wikipedia.org/wiki/Git"><em>git</em></a> and so that is what we will focus on here, but keep in mind that there are other version control systems out there.</p>
+
+<h3 id="creating-an-repository">
+<a class="anchor" href="#creating-an-repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating an repository</h3>
+<h4 id="setup">
+<a class="anchor" href="#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h4>
+<p>When we use <em>git</em> on a computer for the first time, we need to configure a few things:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git config --global user.name "your name"
+$ git config --global user.email "you@thereis.noplace.likehome"
+</code></pre></div></div>
+<p>Please use your own name and email address instead of my dummy ones. From here on in this user name and email will be associated with your login and will be used for all your subsequent <em>git</em> activity.</p>
+
+<p>It is also a good idea to set up which editor <em>git</em> should use on this machine too:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --global core.editor "vim"
+</code></pre></div></div>
+
+<p>You can check your settings at any time:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --list
+</code></pre></div></div>
+
+<h4 id="create-something">
+<a class="anchor" href="#create-something" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create something</h4>
+<p>First, let’s create a directory in our home dir to do some work in:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/
+mkdir the_next_spaceX
+cd the_next_spaceX
+</code></pre></div></div>
+
+<p>Then we tell <em>git</em> to make this dir a <em>git</em> repository – that is a place where git can/should track and store versions of our files:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
+</code></pre></div></div>
+<p>Note - this is only needed at the root dir of a project as git tracks all subfolders of this dir.</p>
+
+<p>Now lets look at what that has done:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+</code></pre></div></div>
+<p>Hmm… nothing…????</p>
+
+<p>well, lets look a little closer:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -a
+</code></pre></div></div>
+<p>It turns out that <em>git</em> has created a hidden directory within our dir called <code class="language-plaintext highlighter-rouge">.git</code>.</p>
+
+<p>Git uses this hidden subdirectory to store all the information about the repo, including all files and sub-directories located within the project’s directory. If you ever delete the <code class="language-plaintext highlighter-rouge">.git</code> subdirectory you will lose the all of the repos’s history. It is an important dir.</p>
+
+<p>Check that everything is set up and working:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status
+</code></pre></div></div>
+<p>This has to be one of my most typed git commands as it tells you what git is doing and thinking. We will talk about what all this output means soon.</p>
+
+<h3 id="tracking-your-work">
+<a class="anchor" href="#tracking-your-work" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tracking your work</h3>
+<p>Ok so you should be in our <code class="language-plaintext highlighter-rouge">the_next_spaceX</code> directory and ready to do some cool work.
+Let’s create a file called mars.txt that contains some notes about the planets suitability as a base. We’ll use vim to edit the file (you can use whatever editor you like).</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vim mars.txt
+</code></pre></div></div>
+<p>Now check it has been created properly:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+</code></pre></div></div>
+<p>yep it is there.
+So, what does git think about this file?</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status
+</code></pre></div></div>
+<p>Git tells us that it’s noticed the new file but that it is <em>untracked</em>. <em>untracked files</em> just means that there’s a file in the directory that Git isn’t keeping track of and we need to decided if we want git to care about it or not. 
+Tell Git to track a file using:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add mars.txt
+</code></pre></div></div>
+<p>and the check that it worked:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status
+</code></pre></div></div>
+<p>So, now git now knows that we want it to keep track of <code class="language-plaintext highlighter-rouge">mars.txt</code>, but it is telling us that it hasn’t recorded the changes we made to it as a commit yet. To get it to actually record the changes, we need to run one more command:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit -m "Started my notes on Mars as a base"
+</code></pre></div></div>
+<p>When we run <em>git commit</em>, git takes everything we have told it to save by using <em>git add</em> and stores a copy permanently inside that special <em>.git</em> directory. This permanent copy is called a commit and its short identifier is some unique number/letter combo like <code class="language-plaintext highlighter-rouge">f22b25e</code>. This identifier allows us to find this point in history later.</p>
+
+<p>Just a few explanatory notes - the <code class="language-plaintext highlighter-rouge">-m</code> flag (for “message”) is used to record a short descriptive comment that will help us remember what we did and why. If we just run git commit without the -m option then git will launch our pre-set editor and ask us to type message. Good commit messages start with a brief (&lt;50 characters) statement about the changes made in the commit. I like to use <a href="https://sparkbox.com/foundry/semantic_commit_messages">semantic commit messages</a> but you can use whatever you like - some people prefer sentences like “If applied, this commit will…”. Always write more than you think is needed.</p>
+
+<p>What has this commit done:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status
+</code></pre></div></div>
+<p>It has put all our changes into git and the message tells us that git is up to date with the files in this folder.</p>
+
+<p>If we want to know what we’ve done recently, we can ask Git to show us the repo’s history:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log
+</code></pre></div></div>
+<p>This lists all commits made to a repository in reverse chronological order and shows you the long versions of those commit identifiers mentioned above.</p>
+
+<h3 id="history-and-how-to-undo-it">
+<a class="anchor" href="#history-and-how-to-undo-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>History and how to undo-it</h3>
+<p>As we mentioned above - we can refer to commits by their identifiers. You can refer to the most recent commit of the working directory by using the identifier <code class="language-plaintext highlighter-rouge">HEAD</code>.</p>
+
+<p>(N.B. make some random changes to the file here so that it is different and these examples work…)</p>
+
+<p>Lets look at our work progress using the <code class="language-plaintext highlighter-rouge">HEAD</code> reference:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff HEAD mars.txt
+</code></pre></div></div>
+<p>This is the same as if you leave out HEAD (try it). The point of showing this it to make it clear that we can refer to previous commits. An easy way to look at the difference between now and previous commits is by adding <code class="language-plaintext highlighter-rouge">~1</code> (where “~” is “tilde”, pronounced [til-duh]) to refer to the commit one before HEAD.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff HEAD~1 mars.txt
+</code></pre></div></div>
+<p>If we want to see the diff between even older commits we can use git diff again, but with the notation HEAD~1, HEAD~2, HEAD~3, and so on:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff HEAD~3 mars.txt
+</code></pre></div></div>
+
+<p>If we aren’t interested in the specific difference between commits we can use git show which <em>shows</em> us what changes we made at an older commit as well as the commit message that we wrote at the time:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git show HEAD~3 mars.txt
+</code></pre></div></div>
+
+<p>But what if we don’t know how many commits ago the change we’re interested in was? Well we can also refer to commits using those long strings of digits and letters called identifiers that <code class="language-plaintext highlighter-rouge">git log</code> displays:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff f22b25e3233b4645dabd0d81e651fe074bd8e73b mars.txt
+</code></pre></div></div>
+
+<p>So we can see what we’ve changed but how can we restore older versions of things? Let’s suppose we change our mind about the last update to mars.txt and want to roll-back to a previously committed version.</p>
+
+<p>Lets look at the status of our git repo to see where we’re at:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status
+</code></pre></div></div>
+
+<p>We have un-staged changes and we will now put things back the way they were:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout HEAD mars.txt
+</code></pre></div></div>
+<p><em>git checkout</em> checks out (i.e., restores) an old version of a file. In this case, we’re telling git that we want to recover the version of the file recorded in the HEAD commit, which is the last saved commit. If we want to go back even further, we can use a commit identifier just like we did with diff and show above:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout f22b25e mars.txt
+</code></pre></div></div>
+<p>Lets see what our git system is thinking about all this jumping around:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status
+</code></pre></div></div>
+<p>This shows us that the file has been changed and are now sitting in the staging area ready for us to do something with.</p>
+
+<h5 id="word-of-warning">
+<a class="anchor" href="#word-of-warning" aria-hidden="true"><span class="octicon octicon-link"></span></a>Word of warning…</h5>
+<p>There is a risk of getting in to a ‘detached HEAD’ state when moving back in time with git.
+We can to revert our file to its state in a previous commit, but be careful! The command <code class="language-plaintext highlighter-rouge">checkout</code> has other important functionalities within git and it is easy for git to misunderstand your intentions if you are not <em>very</em> accurate with what you ask for. For example, if you forget to add the filename - eg. <code class="language-plaintext highlighter-rouge">mars.txt</code> in the previous command, you will get an error saying something about:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You are in 'detached HEAD' state. You can look around, make experimental changes and commit them, and you can discard any commits you make in this state without impacting any branches by performing another checkout...
+</code></pre></div></div>
+
+<p>Don’t panic - the “detached HEAD” state is like “look, but don’t touch” space where so you shouldn’t make any changes in this state and after investigating your repo’s past state you should reattach your <code class="language-plaintext highlighter-rouge">HEAD</code> with <code class="language-plaintext highlighter-rouge">git checkout master</code>.</p>
+
+<h4 id="completely-reverting-a-committed-change">
+<a class="anchor" href="#completely-reverting-a-committed-change" aria-hidden="true"><span class="octicon octicon-link"></span></a>Completely reverting a committed change</h4>
+<p>The above checkout commands allow you to modify one file in the stage area but what if you want to completely revert a commit?
+Lets say that the last commit to the project’s repository contained an error and you wants to undo it. <code class="language-plaintext highlighter-rouge">git revert [erroneous commit ID]</code> will create a new commit that reverses the erroneous commit. Therefore <code class="language-plaintext highlighter-rouge">git revert</code> is different to <code class="language-plaintext highlighter-rouge">git checkout [commit ID]</code> because git checkout returns the files within the local repository to a previous state, whereas git revert reverses changes committed to the local and project repositories.</p>
+
+<h3 id="ignore-stuff">
+<a class="anchor" href="#ignore-stuff" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ignore stuff</h3>
+<p>We almost always have files that we do not want git to track for us - like backup files created by our editor or large data files</p>
+
+<p>(N.B. Let’s create a few dummy files so we have something to ignore…)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir results
+touch a.dat b.dat c.dat results/a.out results/b.out
+</code></pre></div></div>
+<p>Lets see what git sees now:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status
+</code></pre></div></div>
+<p>Now let’s pretend that putting these files in git would be a waste of disk space, so let’s tell git to ignore them.
+We do this by creating a file in the root directory of our project called <code class="language-plaintext highlighter-rouge">.gitignore</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vim .gitignore
+</code></pre></div></div>
+<p>add the following to this file:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*.dat
+results/
+</code></pre></div></div>
+<p>These wildcard patterns tell git what to ignore.
+Now that we have created this file we need to commit it to our repo so that it stays with our repo.</p>
+
+<p>I almost never craft a <code class="language-plaintext highlighter-rouge">.gitignore</code> manually and I almost always steal them from other people - see lots of examples here: <a href="https://github.com/github/gitignore">https://github.com/github/gitignore</a></p>
+
+<h3 id="remotes">
+<a class="anchor" href="#remotes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Remotes</h3>
+<p>Version control really comes into its own when we begin to collaborate with others. We already have most of the machinery we need to do this. The only thing missing is to copy changes from your local repository to another repository on another machine/place.</p>
+
+<p>The beauty of git is that it allow us to easily move work between any number of repositories in any location. In practice, though, it is much saner/easier to use one copy as a “central hub”, and to keep it on the web rather than on someone’s private machine/laptop. Most people use online hosting services like GitHub, Bitbucket, or GitLab, to hold those central or master copies of the repo.</p>
+
+<p>Let’s start by setting up a GitLab repo for sharing the changes we’ve made to our current project with the rest of the team. Log in to GitLab.com, then click on the “New Project” icon in the top right corner then create a blank project called <code class="language-plaintext highlighter-rouge">the_next_spaceX</code>.</p>
+
+<p><img src="../images/new_project_button.png" alt="New Project Button"></p>
+
+<p>As soon as the repository is created GitLab displays a page with a URL and some information on how to configure your local repository.</p>
+
+<p>What you have effectively done is the following on GitLab’s servers:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir the_next_spaceX
+cd the_next_spaceX
+git init
+</code></pre></div></div>
+<p>and have created an empty git repo with your projects name. Now we need to connect our local git repo with the new, but empty, GitLab one.  We do this by making the GitLab repository a <code class="language-plaintext highlighter-rouge">remote</code> for the local repository. The home page of the repository on GitLab includes the command you need to run on your machine:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add origin git@gitlab.com:ccfp1/the_next_spacex.git
+</code></pre></div></div>
+<p>Note - <code class="language-plaintext highlighter-rouge">origin</code> is a just a name used to refer to the remote repository. It could be called anything, but <code class="language-plaintext highlighter-rouge">origin</code> is a convention that is often used by default in git and GitLab, so it’s helpful to stick with this unless there’s a reason not to.</p>
+
+<p>We can check that the command has worked:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote -v
+</code></pre></div></div>
+<p>Once the remote is set up, this command will push the changes from our local repository to the repository on GitLab:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push origin master
+</code></pre></div></div>
+<p>We can pull changes from the remote repository to the local one as well:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull origin master
+</code></pre></div></div>
+
+<p>We now have a way to share (some people call it ‘inflict’) your code with others.</p>
+
+<h3 id="collaborating">
+<a class="anchor" href="#collaborating" aria-hidden="true"><span class="octicon octicon-link"></span></a>Collaborating</h3>
+<p>For this part it is good to work in pairs… One person will be the “Owner” and the other will be the “Collaborator”. The goal is that the Collaborator add changes into the Owner’s repository.</p>
+
+<p>(Note - the Owner needs to give the Collaborator access to the repo)</p>
+
+<p>Now the Collaborator needs to download a copy of the Owner’s repository to their machine. This is called “cloning a repo”. To clone the Owner’s repo:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://gitlab.com/ccfp1/the_next_spacex.git ~/the_next_spacex
+</code></pre></div></div>
+<p>The Collaborator can now make a change in their clone of the Owner’s repository, exactly the same way as we’ve been doing before:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/the_next_spacex
+vim pluto.txt
+</code></pre></div></div>
+<p>Now add this to your local copy of the repo:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add pluto.txt
+git commit -m "Add notes about Pluto"
+</code></pre></div></div>
+<p>Now we share this back with the remote repo by “pushing” the change to the Owner’s repository on GitLab:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> git push origin master
+</code></pre></div></div>
+
+<p>Ok, so now look to the Owner’s repository on GitLab website now. You should be able to see the new commit made by the Collaborator.</p>
+
+<p>Now you as the owner can download the Collaborator’s changes from GitLab:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull origin master
+</code></pre></div></div>
+
+<p>Now the three repositories (Owner’s local, Collaborator’s local, and Owner’s on GitLab) are in sync.</p>
+
+<h5 id="a-basic-collaborative-workflow">
+<a class="anchor" href="#a-basic-collaborative-workflow" aria-hidden="true"><span class="octicon octicon-link"></span></a>A Basic Collaborative Workflow:</h5>
+<p>In practice, it is good to be sure that you have an updated version of the repository you are collaborating on, so you should <code class="language-plaintext highlighter-rouge">git pull</code> before making our changes. The basic collaborative workflow would be:</p>
+<ul>
+  <li>update your local repo with <code class="language-plaintext highlighter-rouge">git pull origin master</code>,</li>
+  <li>make your changes and stage them with <code class="language-plaintext highlighter-rouge">git add</code>,</li>
+  <li>commit your changes with <code class="language-plaintext highlighter-rouge">git commit -m</code>, and</li>
+  <li>upload the changes to GitLab with git push origin master</li>
+</ul>
+
+<p>It is better to make many commits with smaller changes rather than of one commit with massive changes: small commits are easier to read and review.</p>
+
+<h4 id="branching">
+<a class="anchor" href="#branching" aria-hidden="true"><span class="octicon octicon-link"></span></a>Branching</h4>
+<p>How do we all work on the same code/repo/project at the same time without clobbering each other… enter branching…</p>
+
+<p>I think <a href="https://guides.github.com/introduction/flow/">GitHub Flow</a> is a good and simple way to do this, but there’s a lot of different workflows for git branching so search around and you might find one you prefer.</p>
+
+<p>You always start from the <code class="language-plaintext highlighter-rouge">master</code> branch - which is the most stable and working version of you code - checking out a new branch to do your next piece of work. When you’re ready for your work to be reviewed and merged into the <code class="language-plaintext highlighter-rouge">master</code> branch of the project you open a <code class="language-plaintext highlighter-rouge">merge request</code> to <code class="language-plaintext highlighter-rouge">master</code>.</p>
+
+<p><em>N.B.</em> Even if you’re a solo developer on a project, I still recommend you use this the process of making branches and opening merge requests as it serves as a record of your work - it is your lab-notebook.</p>
+
+<p>When you create a branch in your project, you’re creating an isolated copy/environment where you can try out your new ideas. Changes you make on one branch do not affect the other branches, so you are free to experiment and commit changes, safe in the knowledge that your branch won’t be merged until it’s ready to be reviewed by someone you’re collaborating with.</p>
+
+<p><em>N.B.</em> Branching is a core concept in git and the entire git workflow is based upon it. <em>There’s only one rule:</em> anything in the master branch is always deployable/usable.</p>
+
+<h5 id="creating-branches">
+<a class="anchor" href="#creating-branches" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating branches</h5>
+<p>Lets actually create a branch:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>We will do this in the gitlab webpage... make an "update-mars-file" branch
+(#TODO insert a screenshot here)
+</code></pre></div></div>
+<p>Your branch name should be descriptive (e.g., <code class="language-plaintext highlighter-rouge">parallelize-function-a</code>), so that others can see what is being worked on.</p>
+
+<p>Now, once your branch has been created, it’s time to start making changes… pull your branch to your machine:</p>
+
+<p>What branch are we on now?</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status
+</code></pre></div></div>
+
+<p>Now fetch the upstream changes:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">git fetch</code> downloads commits, files, and refs from the remote repository into your local repo. Fetching is what you do when you want to see what everybody else has been working on. Git isolates fetched content from existing local content and it has absolutely no effect on your local development work. Fetched content has to be explicitly checked out using the <code class="language-plaintext highlighter-rouge">git checkout</code>… lets do that now:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout update-mars-file
+</code></pre></div></div>
+<p>You can now make your changes in this ‘copy’ of the code and commit, push/pull until your heart is content.</p>
+
+<p>You can also work on many branches at once but “checking-out” the other branches when you want to work on them.</p>
+
+<h4 id="merging--review">
+<a class="anchor" href="#merging--review" aria-hidden="true"><span class="octicon octicon-link"></span></a>Merging &amp; Review</h4>
+<p>“Merge requests” initiate a discussion about the commits you made in your branch.</p>
+
+<p>You can open a Merge Request at any point: when you have little or no code but you just want to share some general ideas, or when you’re stuck and need help or advice, or when you’re ready for someone to review your work. By using GitLab’s <code class="language-plaintext highlighter-rouge">@mention</code> system in your Merge Requests and messages, you can ask for feedback from specific people or teams.</p>
+
+<p>Lets do it - first push your local code back up to the remote:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push origin update-mars-file
+</code></pre></div></div>
+<p>Now go to the gitlab webpage and create a merge request:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>we will do this on the gitlab webpage... (#TODO insert a screenshot here)
+</code></pre></div></div>
+<p>Once a Merge Request has been opened, the person or team reviewing your changes will have questions or comments. Merge Requests are designed to encourage and capture these conversation and feedback.</p>
+
+<p><em>N.B.</em> You can also continue to push to changes this branch in light of discussion and feedback about your commits. If someone comments that you forgot to do something or if there is a bug in the code, you can fix it in your branch locally and push up the change. GitLab will show your new commits and any additional feedback you may receive in the unified Merge Request view.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>do a simple review process on gitlab webpage... and then merge it... (#TODO insert a screenshot here)
+</code></pre></div></div>
+<p>Once your Merge Request has been reviewed and the branch passes your tests, you can merge your changes into master which will eventually be used as a release to “production”. Deploying to production won’t be covered here. Once merged, “Merge Requests” preserve the record of the historical changes to our code. Because they’re search-able, discoverable, and they let anyone go back in time to understand why and how a decision was made.</p>
+
+<h2 id="acknowledgments">
+<a class="anchor" href="#acknowledgments" aria-hidden="true"><span class="octicon octicon-link"></span></a>Acknowledgments</h2>
+<p>Most of this content came from the wonderful work of Software-Carpentry <a href="https://swcarpentry.github.io/git-novice/">https://swcarpentry.github.io/git-novice/</a> that i have mixed and matched and extended into bracnhing and review.</p>
+
+  </div><a class="u-url" href="/markdown/2021/03/21/CollaborativeCoding.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>My blog.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/RobTheOceanographer" target="_blank" title="RobTheOceanographer"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/JohnsonRob" target="_blank" title="JohnsonRob"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
