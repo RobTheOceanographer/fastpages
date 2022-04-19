@@ -99,6 +99,7 @@ $    False
 # 2) I know that when I divide the number 5 I should get 2.5 so lets test the divide function using that.
 divide_by_two(5) == 2.5
 ```
+
 ```
     ---------------------------------------------------------------------------
 
@@ -132,8 +133,8 @@ when x is less than zero the logic of `x >= 0` will return false and an assert e
 ```python
 # 1) loading of data.
 assert some_data.shape == (39,2), "The data hasn't loaded properly. Size is not 39 x 2"
-
 ```
+
 ```
     ---------------------------------------------------------------------------
 
@@ -153,8 +154,8 @@ assert some_data.shape == (39,2), "The data hasn't loaded properly. Size is not 
 assert divide_by_two(5) == 2.5, "The divide_by_two function did not return 2.5 when given 5."
 
 ```
-```
 
+```
     ---------------------------------------------------------------------------
 
     NameError                                 Traceback (most recent call last)

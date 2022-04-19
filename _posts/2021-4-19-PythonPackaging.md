@@ -5,11 +5,11 @@ layout: post
 title: Grow your own Python Package
 excerpt:
          <p>I decided to write up this short post to help both me and some colleagues remember what the most basic way of constructing a python package is.</p>
-         <img src="https://raw.githubusercontent.com/RobTheOceanographer/robtheoceanographer.github.io/master/images/python.png" alt="python_cartoon">
+         <img src="https://raw.githubusercontent.com/RobTheOceanographer/fastpages/master/images/python.png" alt="python_cartoon">
 ---
 I decided to write up this short post to help both me and some colleagues remember what the most basic way of constructing a python package is.
 
-This is a bare-bones build - *you should be doing more than this* - for example putting in `README` file and `LICENSE` file and good [docstrings](http://www.robtheoceanographer.com/HowToDocstring/).
+This is a bare-bones build - *you should be doing more than this* - for example putting in `README` file and `LICENSE` file and good [docstrings](https://www.robtheoceanographer.com/markdown/2020/01/11/HowToDocstring.html).
 
 The basic structure of a python package is quite straight forward:
 

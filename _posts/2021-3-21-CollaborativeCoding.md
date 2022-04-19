@@ -5,7 +5,7 @@ categories: [markdown]
 title: Collaborative Coding with Git & GitLab
 excerpt:
          <p>I've been asked by more than one person how to use git and merge requests for collaborative coding. Here are my notes for me to refer back to later and to point people to when i teach them how to do this.</p>
-         <img src="https://raw.githubusercontent.com/RobTheOceanographer/robtheoceanographer.github.io/master/images/branching.png" alt="branching_cartoon">
+         <img src="https://raw.githubusercontent.com/RobTheOceanographer/fastpages/master/images/branching.png" alt="branching_cartoon">
 ---
 I've been asked by more than one person about how to use git and merge requests for collaborative scientific coding. Here are my notes for me to refer back to later and for me to point people to when I spend time teaching them how to do this.
 
@@ -218,7 +218,7 @@ The beauty of git is that it allow us to easily move work between any number of 
 
 Let’s start by setting up a GitLab repo for sharing the changes we’ve made to our current project with the rest of the team. Log in to GitLab.com, then click on the "New Project" icon in the top right corner then create a blank project called `the_next_spaceX`.
 
-![New Project Button](../images/new_project_button.png)
+![New Project Button]({{ site.baseurl }}/images/new_project_button.png)
 
 As soon as the repository is created GitLab displays a page with a URL and some information on how to configure your local repository.
 
