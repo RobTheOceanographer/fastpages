@@ -142,25 +142,25 @@ window.onload = wrap_img;
 
 <h2 id="turner-calibration">
 <a class="anchor" href="#turner-calibration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Turner calibration</h2>
-<p>The method for calibrating a Turner fluorometer is quite straight forward and is well documented by Turner themselves. – <a href="../docs/turner_cal_doc.pdf">see this document for their 10-AU model</a>. The part that is not often documented is how do you independently determine the concentration of your chlorophyll standard in order to do this calibration in the first place. That is what I hope to show you how to do here.</p>
+<p>The method for calibrating a Turner fluorometer is quite straight forward and is well documented by Turner themselves. – <a href="/docs/turner_cal_doc.pdf">see this document for their 10-AU model</a>. The part that is not often documented is how do you independently determine the concentration of your chlorophyll standard in order to do this calibration in the first place. That is what I hope to show you how to do here.</p>
 
 <h4 id="spectophotometric-estimation-of-chlorophyll-concentrations">
 <a class="anchor" href="#spectophotometric-estimation-of-chlorophyll-concentrations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Spectophotometric estimation of chlorophyll concentrations</h4>
-<p>This is a brief method for estimating chlorophyll concentrations based on a samples spectral absorption, following <a href="../docs/jeffreyhumphrey1975.pdf">Jeffrey and Humphrey 1975</a>:</p>
+<p>This is a brief method for estimating chlorophyll concentrations based on a samples spectral absorption, following <a href="/docs/jeffreyhumphrey1975.pdf">Jeffrey and Humphrey 1975</a>:</p>
 
 <ul>
-  <li>Make up solutions of varying chlorophyll concentrations in 100% acetone (see <a href="../docs/jeffreyhumphrey1975.pdf">Jeffrey and Humphrey 1975</a> for info on other solvents). I usually make three (a low, middle, and high concentration) for doing a calibration run.</li>
+  <li>Make up solutions of varying chlorophyll concentrations in 100% acetone (see <a href="/docs/jeffreyhumphrey1975.pdf">Jeffrey and Humphrey 1975</a> for info on other solvents). I usually make three (a low, middle, and high concentration) for doing a calibration run.</li>
   <li>Using a UV/Vis spectrophotometer measure the absorption of your chlorophyll standard at 664nm, 647nm, 630nm, 750nm. I’ll leave it up to you to work out how to make these measurements as all spectro’s have different software etc etc…</li>
   <li>Calculate the extinction coefficients at 664nm, at 647nm, and at 630nm using the following eq:</li>
 </ul>
 
-<p><img src="../images/turner_cal_eq1.png" alt="Equation 1"></p>
+<p><img src="/images/turner_cal_eq1.png" alt="Equation 1"></p>
 
 <p>where x denotes the wavelength of interest (e.g. 664 or 647 or 630nm), A is the absorption value, and E is the resulting extinction coefficient.</p>
 
 <p>Using these extinction coefficients calculate chlorophyll a concentration using equation 4 from Jeffrey and Humphrey 1975 as follows:</p>
 
-<p><img src="../images/turner_cal_eq2.png" alt="Equation 2"></p>
+<p><img src="/images/turner_cal_eq2.png" alt="Equation 2"></p>
 
 <p>where the resulting units are based on your abs measurement units but are likely to be ug/mL and so need to be converted to the more common ug/L. There are also equations for chl b and c should you be interested in them.</p>
 
@@ -168,7 +168,7 @@ window.onload = wrap_img;
 
 <h4 id="bibliography">
 <a class="anchor" href="#bibliography" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bibliography:</h4>
-<p>Jeffrey, SW T., and G. F. Humphrey. “New spectrophotometric equations for determining chlorophylls a, b, c1 and c2 in higher plants, algae and natural phytoplankton.” Biochem Physiol Pflanz BPP (1975). <a href="../docs/jeffreyhumphrey1975.pdf">PDF</a></p>
+<p>Jeffrey, SW T., and G. F. Humphrey. “New spectrophotometric equations for determining chlorophylls a, b, c1 and c2 in higher plants, algae and natural phytoplankton.” Biochem Physiol Pflanz BPP (1975). <a href="/docs/jeffreyhumphrey1975.pdf">PDF</a></p>
 
   </div><a class="u-url" href="/markdown/2014/12/01/TurnerCalibration.html" hidden></a>
 </article>
