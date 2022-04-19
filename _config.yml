@@ -41,7 +41,10 @@ minima:
   social_links:
     twitter: JohnsonRob
     github: RobTheOceanographer
-    gitlab: robtheoceanographer
+    
+    gitlab:
+     - username: robtheoceanographer
+       instance: gitlab.com
 
 # Set this to true to get LaTeX math equation support
 use_math: true
