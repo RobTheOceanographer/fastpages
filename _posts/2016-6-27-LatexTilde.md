@@ -3,6 +3,7 @@ toc: true
 categories: [markdown]
 layout: post
 title: In search of a better Tilde.
+image: images/CTAN_lion_drawing_by_Duane_Bibby.gif
 excerpt:
          <p>My good friend Dr. Tom Remenyi just sent me a little LaTeX hack that I thought would be worth sharing. He recently found himself in need of a Tilde, that is a '~' and quickly became frustrated with the standard/default LaTeX rendering and as such decided to define his own. Here's how you can too...</p>
 ---

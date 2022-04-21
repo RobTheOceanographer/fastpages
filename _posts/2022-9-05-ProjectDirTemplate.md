@@ -3,6 +3,7 @@ toc: true
 categories: [markdown]
 layout: post
 title: A template for structuring your scientific code
+image: images/file_struct_logo.png
 excerpt:
          <p>Over the last ten years or so i've slowly settled on a standard template and directory structure for my coding projects. I don't see many people sharing ideas on project layout or directory structure so I thought i'd post a short blog on what I do.</p>
 ---

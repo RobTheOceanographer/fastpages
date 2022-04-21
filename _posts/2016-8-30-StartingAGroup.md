@@ -3,6 +3,7 @@ toc: true
 categories: [markdown]
 layout: post
 title: Tips For Running a Data Science Group
+image: images/group_logo.png
 excerpt:
          <p>I’ve built and ran four data science groups/meet ups in the past 10 years or so. Three of the four failed, but each failed in a different way and for different reasons. I now have a list based on this experience and on that one semi-successful group. This list is evolving and is by no means a complete list nor is it suitable for all cases or all people – pick and choose whatever you like from it and ignore the rest.</p>
 ---

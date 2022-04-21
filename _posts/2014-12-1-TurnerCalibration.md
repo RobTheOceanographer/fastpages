@@ -2,6 +2,7 @@
 toc: true
 layout: post
 categories: [markdown]
+image: images/turner.jpeg
 title: How to calibrate a Turner Fluorometer for phytoplankton Chlorophyll a
 ---
 
