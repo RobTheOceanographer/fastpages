@@ -3,7 +3,7 @@ layout: page
 title: About Me
 permalink: /about/
 ---
-<img src="../images/RobertJohnson.jpg" align="left"  style="border:10px solid white" width="200px"/>
+<img src="../images/RobertJohnson.jpg" align="left"  style="border:10px solid white" width="300px"/>
 Rob Johnson is a jack-of-all trades, Doctor of Philosophy, data scientist, recovering oceanographer, doer and oddball. Described by a colleague as "…good at turning data into insights. Rob  communicates complex matters effectively and is comfortable saying 'I don't know, but I know how to find out'", he also happens to be genuinely excited by scientific challenges and his passion motivates others to do their best. With a string of successful science projects under his belt, Rob has become known for his warm and engaging personality, authentic insights, and wealth of knowledge and experience that he applies to new challenges. Though all of  this he has developed a great "BS" detector, which allows him to make progress where others get stuck.
 
 <br clear="left"/>
