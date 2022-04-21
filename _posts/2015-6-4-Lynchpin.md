@@ -3,6 +3,7 @@ toc: true
 layout: post
 categories: [markdown]
 title: Art meets Science
+image: images/lynchpin_logo.png
 ---
 <iframe src="https://player.vimeo.com/video/80873449" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/80873449">ex Oceano - we are from the ocean - the ocean sustains us</a> from <a href="https://vimeo.com/nickroden">Nick Roden</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
 
