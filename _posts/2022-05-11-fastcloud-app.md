@@ -5,6 +5,7 @@ title: FastCloud - the app
 comments: true
 categories: [fastai, jupyter, clouds, meteorology]
 image: images/fast_clouds_top_losses_small.png
+permalink: /:title:output_ext
 nb_path: _notebooks/2022-05-11-fastcloud-app.ipynb
 layout: notebook
 ---
