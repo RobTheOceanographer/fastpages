@@ -21,7 +21,7 @@ layout: notebook
         
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>I am currently a student in the <a href="https://course.fast.ai/">fast.ai practical deep learnign for coders v5</a> class and after the first week I built a cloud type classifier called <strong><em>FastClouds</em></strong> - which you can read about <a href="https://www.robtheoceanographer.com/fastai/jupyter/clouds/meteorology/2022/04/29/fastcloud.html">here</a></p>
+<p>I am currently a student in the <a href="https://course.fast.ai/">fast.ai practical deep learnign for coders v5</a> class and after the first week I built a cloud type classifier called <strong><em>FastClouds</em></strong> - which you can read about <a href="https://www.robtheoceanographer.com/fastcloud.html">here</a></p>
 <p>After the second and third lesson I have implemented some of the things <a href="https://twitter.com/jeremyphoward">Jeremy</a> discussed and worked through and that is what I have to show you in this post.</p>
 
 </div>
