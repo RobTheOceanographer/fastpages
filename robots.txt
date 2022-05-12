@@ -1,1 +1,1 @@
-Sitemap: https://robtheoceanographer.com/blog/sitemap.xml
+Sitemap: https://robtheoceanographer.com/sitemap.xml
