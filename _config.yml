@@ -7,7 +7,7 @@
 # https://learnxinyminutes.com/docs/yaml/
 
 title: Rob Johnson
-description: I’m Rob. I’m a data scientist, researcher, developer, and educator.
+description: Hi, I'm Rob. I'm a data scientist, environmental science researcher, model developer, and educator.
 github_username: RobTheOceanographer
 # you can comment the below line out if your repo name is not different than your baseurl
 github_repo: "fastpages"
@@ -34,7 +34,7 @@ url: "https://robtheoceanographer.com" # the base hostname & protocol for your s
 #
 # 3. You must replace the parameter `baseurl` in _action_files/settings.ini with the same value as you set here but WITHOUT QUOTES.
 #
-baseurl: "" # the subpath of your site, e.g. "/blog".
+baseurl: "/blog" # the subpath of your site, e.g. "/blog".
 
 # Github and twitter are optional:
 minima:
@@ -78,7 +78,7 @@ default_badges:
   github: true
   binder: true
   colab: true
-  deepnote: true
+  deepnote: false
 
 # Escape HTML in post descriptions
 html_escape:
