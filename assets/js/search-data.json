@@ -4,8 +4,8 @@
         "post0": {
             "title": "FastCloud - the app",
             "content": "I am currently a student in the fast.ai practical deep learnign for coders v5 class and after the first week I built a cloud type classifier called FastClouds - which you can read about here . After the second and third lesson I have implemented some of the things Jeremy discussed and worked through and that is what I have to show you in this post. . Model Refinement . In lesson 2 of https://course.fast.ai/ v5 data cleaning and data augmentation was discussed. Data cleaning turned out to be a big part of making FastClouds perform better as the images i scraped from duckduckgo for clouds turned out to be quite messy and unreliably classified... unsurprising really. Once i&#39;d cleaned up my image data set my model went from ~75% accurate to ~81% accurate. . This is the training with raw data: . . This is the training with cleaned up data: . . Data augmentation using the fastai DataBlock was super simple to implement. I just added the batch_tfms=aug_transforms() line to my DataBlock definition and fastai took care of the rest for me. Data augmentation did add a bit of skill to the model - we went from ~81% to ~85% - but i suspect that this is because the input images are already quite varied and so augmentation didn&#39;t add that much more information for the model to learn. This is a batch of augmented images and they look very similar to the original images: . . Final performance . In the end we have a model that is about ~85% accurate using pretty much out of the box fastai methods and using a very small dataset - the final version only used 50 images from each category. As far as I know there is no other model out there that can classify clouds from images with this accuracy. . For reference, the notebook used is here: Kaggle Notebook and here GitHub Repo . TROPS . Now that we have a model i&#39;d like to be able to make it &#39;operational&#39; and available for people to use. The Transition to Operations (TROPS) using huggingface and gradio was discussed in lesson 2 and that is what i have used here to deploy the FastCloud model. . The app version looks like this: . . and you can go to this URL to play with it. . https://huggingface.co/spaces/robtheoceanographer/FastClouds . I&#39;d love it is you send me screenshots of the clouds you classify with this. Thanks for reading. .",
-            "url": "https://robtheoceanographer.com/fastai/jupyter/clouds/meteorology/2022/05/11/fastcloud-app.html",
-            "relUrl": "/fastai/jupyter/clouds/meteorology/2022/05/11/fastcloud-app.html",
+            "url": "https://robtheoceanographer.com/fastcloud-app.html",
+            "relUrl": "/fastcloud-app.html",
             "date": " • May 11, 2022"
         }
         
@@ -15,8 +15,8 @@
         ,"post1": {
             "title": "FastClouds - my first fastai model",
             "content": "I am currently a student in the fast.ai practical deep learnign for coders v5 class and after the first week I took Jeremy&#39;s advice to just try to complete some small project using the material covered so far in lesson 1. . Therefore, I humbly present FastClouds . This is not meant to be a serious project and is just for my own learning experience. . The Problem . On ground observations are a key part to weather forecasting. Most observations are taken by autonomous systems but there are still a few routine observations that are done manually by a human. One of these is cloud type classification. . This manual observation is currently done is at major airports around Australia. At these airports one or more highly knowledgeable and accredited aerodrome weather observers is stationed to take manual weather observations on a fixed schedule throughout each day. But, having such specialized observers at all airports all of the time is not cost effective or realistically feasible, especially for remote locations (e.g. uninhabited islands or infrequently used aerodromes). Therefore many of these remote or small areas miss out on observations and perhaps receive lower quality situational awareness and forecasts as a result. . The Solution . Using deep learning and image classification techniques to classifying cloud types from photographs seemed to me a very plausible solution to this problem. Therefore, after the Fastai course v5 lecture 1 I thought I&#39;d try to do exactly that using a visual learner example Jeremy provided as my starting point. . This algorithm uses a resnet and transfer learning as per the original notebook - [is-it-a-bird] -(https://www.kaggle.com/code/jhoward/is-it-a-bird-creating-a-model-from-your-own-data) but it uses three broad categories of clouds instead of just birds vs forests. These classes were chosen as per the work of Luke Howard in &quot;Essay of the Modifications of Clouds&quot; (1803). . This is an image from: https://www.weather.gov/jetstream/corefour . In order to create a data set duckduckgo was searched for the terms: cirrus clouds, cumulus clouds, stratus clouds. here is an example batch of images used in the training: . . The Notebook . This notebook is sitting on Kaggle as it has a nice (e.g. free...) gpu backend that allows you to run this model should you wish to poke around. . So, here it is for you to enjoy - https://www.kaggle.com/robtheoceanographer/fastclouds . Conclusion . While this is very basic demo and only about 70% accurate, it shows great potential for automating some of the cloud type observing in remote regions of Australia where there is currnetly limited or no human observer coverage, and therefore this work might benifit from future work. . I&#39;d love ideas, feedback, and suggestions should anyone have any. . Thanks .",
-            "url": "https://robtheoceanographer.com/fastai/jupyter/clouds/meteorology/2022/04/29/fastcloud.html",
-            "relUrl": "/fastai/jupyter/clouds/meteorology/2022/04/29/fastcloud.html",
+            "url": "https://robtheoceanographer.com/fastcloud.html",
+            "relUrl": "/fastcloud.html",
             "date": " • Apr 29, 2022"
         }
         
@@ -223,14 +223,10 @@
   
 
   
-
   
 
   
-  
-
-  
-      ,"page14": {
+      ,"page12": {
           "title": "",
           "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
           "url": "https://robtheoceanographer.com/robots.txt",
