@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>nbdev on gitlab | Rob Johnson</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="nbdev on gitlab" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An exploration of making nbdev v2 work with gitlab." />
+<meta property="og:description" content="An exploration of making nbdev v2 work with gitlab." />
+<link rel="canonical" href="https://robtheoceanographer.com/gitlab-nbdev.html" />
+<meta property="og:url" content="https://robtheoceanographer.com/gitlab-nbdev.html" />
+<meta property="og:site_name" content="Rob Johnson" />
+<meta property="og:image" content="https://robtheoceanographer.com/images/fastai_logo_small.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-08-08T00:00:00-05:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://robtheoceanographer.com/images/fastai_logo_small.jpg" />
+<meta property="twitter:title" content="nbdev on gitlab" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-08-08T00:00:00-05:00","datePublished":"2022-08-08T00:00:00-05:00","description":"An exploration of making nbdev v2 work with gitlab.","headline":"nbdev on gitlab","image":"https://robtheoceanographer.com/images/fastai_logo_small.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://robtheoceanographer.com/gitlab-nbdev.html"},"url":"https://robtheoceanographer.com/gitlab-nbdev.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://robtheoceanographer.com/feed.xml" title="Rob Johnson" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-63550083-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-63550083-1');
+</script>
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Rob Johnson</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/papers/">Papers</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">nbdev on gitlab</h1><p class="page-description">An exploration of making nbdev v2 work with gitlab.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-08-08T00:00:00-05:00" itemprop="datePublished">
+        Aug 8, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#nbdev">nbdev</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#fastai">fastai</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#jupyter">jupyter</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#gitlab">gitlab</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#github">github</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/RobTheOceanographer/fastpages/tree/master/_notebooks/2022-08-08-gitlab-nbdev.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/RobTheOceanographer/fastpages/master?filepath=_notebooks%2F2022-08-08-gitlab-nbdev.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/RobTheOceanographer/fastpages/blob/master/_notebooks/2022-08-08-gitlab-nbdev.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-08-08-gitlab-nbdev.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://www.fast.ai/">fast.ai</a> recently released version 2 of their popular <a href="https://nbdev.fast.ai/">nbdev toolkit</a>. nbdev is a set of tools that enable you to write, test, document, and distribute software packages and technical articles all in one place - <a href="https://jupyter.org/">the jupyter notebook</a>. Version two, like version one, is designed with integration into the <a href="github.com">github.com</a> ecosystem therefore making it a little more difficult to use in other similar ecosystems. Where I work we run an internal <a href="gitlab.com">gitlab.com</a> system and are unable to use the github features of nbdev. So, for the last year or so I have been using a modified nbdev v1 system that i hacked together to work on the gitlab ecosystem and now with the recent update to version 2 I have set out to do the same again. This time i thought i'd share what i did and learnt along the way.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What">What<a class="anchor-link" href="#What"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The image below from <a href="nbdev.fast.ai">nbdev.fast.ai</a> shows the basic layout of the nbdev ecosystem:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/copied_from_nb/images/nbdev_img.png" alt="image" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From this image we can see that the key things that deal with github are the CI for testing and the CD for document build and deploy using quarto on github pages. Luckily for us gitlab has equivelant functionality and so we will be able to replicate most of the nbdev v2 functionality in gitlab.</p>
+<p>Therefore our todo list is quite short:</p>
+<p>TODO list:</p>
+<ul>
+<li>convert github actions to gitlab ci</li>
+<li>party 🎉🥳🎉</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="How">How<a class="anchor-link" href="#How"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Docker-image">Docker image<a class="anchor-link" href="#Docker-image"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://docs.gitlab.com/ee/ci/quick_start/index.html">gitlab CI/CD</a> is configured in a similar way to github actions in that there is a config file that lives in your repo to tell the <a href="https://docs.gitlab.com/runner/">runner</a> what to do and when to do it. The config file detail what os/environment to use to run your code in. In the official nbdev case they use the latest build of <a href="https://ubuntu.com/">ubuntu</a> and in my case I use a <a href="https://hub.docker.com/r/continuumio/miniconda3">continuumio/miniconda3 build</a> as my base. nbdev use this image base to install the latest versions of everything on the fly during every actions run but as i have a shared and quite slow runner at work I tend to use a pre-build container with the latest nbdev and quarto already installed and ready to go.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Feel free to use my container yourself if you like: <a href="https://hub.docker.com/r/robtheoceanographer/nbdev2">https://hub.docker.com/r/robtheoceanographer/nbdev2</a></em></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="gitlab-CI/CD-config-file">gitlab CI/CD config file<a class="anchor-link" href="#gitlab-CI/CD-config-file"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now that we have the basic image ready to use we now need to write our config file. The language used for gitlab ci/cd is <code>yaml</code> and my basic set up is shown below:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">robtheoceanographer/nbdev2:latest</span>
+
+<span class="c1"># Cache modules in between jobs</span>
+<span class="nt">cache</span><span class="p">:</span>
+  <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">$CI_COMMIT_REF_SLUG</span>
+
+<span class="nt">clean</span><span class="p">:</span>
+  <span class="nt">stage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">build</span>
+  <span class="nt">script</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo &quot;Check we are starting with clean git checkout&quot;</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">if [ -n &quot;$(git status -uno -s)&quot; ]; then echo &quot;git status is not clean&quot;; false; fi</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo &quot;Trying to strip out notebooks&quot;</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">nbdev_clean</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo &quot;Check that strip out was unnecessary&quot;</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git status -s</span> <span class="c1"># display the status to see which nbs need cleaning up</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">if [ -n &quot;$(git status -uno -s)&quot; ]; then echo -e &quot;!!! Detected unstripped out notebooks\n!!!Remember to run nbdev_install_hooks&quot;; false; fi</span>
+
+<span class="nt">test</span><span class="p">:</span>
+  <span class="nt">stage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test</span>
+  <span class="nt">script</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo &quot;Doing the testing here...&quot;</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">nbdev_install</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">nbdev_test</span>
+
+<span class="nt">pages</span><span class="p">:</span>
+  <span class="nt">stage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">deploy</span>
+  <span class="nt">script</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pwd</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">nbdev_install</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">nbdev_docs</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">cp -r _docs/ public/</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ls</span>
+  <span class="nt">artifacts</span><span class="p">:</span>
+    <span class="nt">paths</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">public</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now this is a first cut gitlab-ci.yml and there's definately more to do and change here... for example, i haven't set up good caching or sharing of builds and so things get built multiple times... feel free to contribute it you like.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This config will replicate most of what is being doing in the github actions of nbdev on github.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="settings.ini">settings.ini<a class="anchor-link" href="#settings.ini"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Because they nbdev ecosystem is expecting you to push your code to github it has a few pre-filled github things in the <code>settings.ini</code> that we need to tweak.
+The main things to change are the <code>host</code> and <code>git_url</code> sections.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is an example of <a href="https://gitlab.com/robtheoceanographer/nbdev2_template/-/blob/main/settings.ini">my template setting.ini file</a> for you to see the difference:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">[DEFAULT]</span>
+<span class="c1"># All sections below are required unless otherwise specified</span>
+<span class="c1"># see https://github.com/fastai/nbdev/blob/master/settings.ini for original</span>
+<span class="na">host</span> <span class="o">=</span> <span class="s">gitlab</span>
+<span class="na">lib_name</span> <span class="o">=</span> <span class="s">nbdev2_template</span>
+<span class="na">description</span> <span class="o">=</span> <span class="s">a clone of nbdev v2 to gitlab.</span>
+<span class="na">copyright</span> <span class="o">=</span> <span class="s">this is all thanks to fastai</span>
+<span class="na">keywords</span> <span class="o">=</span> <span class="s">fastai nbdev</span>
+<span class="na">user</span> <span class="o">=</span> <span class="s">robtheoceanographer</span>
+<span class="na">author</span> <span class="o">=</span> <span class="s">Robert Johnson</span>
+<span class="na">author_email</span> <span class="o">=</span> <span class="s">example@gmail.com</span>
+<span class="na">repo</span> <span class="o">=</span> <span class="s">nbdev2_template</span>
+<span class="na">branch</span> <span class="o">=</span> <span class="s">main</span>
+<span class="na">version</span> <span class="o">=</span> <span class="s">0.0.1</span>
+<span class="na">min_python</span> <span class="o">=</span> <span class="s">3.9</span>
+<span class="na">audience</span> <span class="o">=</span> <span class="s">Developers</span>
+<span class="na">language</span> <span class="o">=</span> <span class="s">English</span>
+<span class="na">custom_sidebar</span> <span class="o">=</span> <span class="s">False</span>
+<span class="na">license</span> <span class="o">=</span> <span class="s">None</span>
+<span class="na">status</span> <span class="o">=</span> <span class="s">2</span>
+<span class="na">nbs_path</span> <span class="o">=</span> <span class="s">nbs</span>
+<span class="na">doc_path</span> <span class="o">=</span> <span class="s">_docs</span>
+<span class="na">recursive</span> <span class="o">=</span> <span class="s">False</span>
+<span class="na">tst_flags</span> <span class="o">=</span> <span class="s">notest</span>
+
+<span class="c1">### Inferred From Other Values but tailored for gitlab ###</span>
+<span class="na">doc_host</span> <span class="o">=</span>  <span class="s">/</span>
+<span class="na">doc_baseurl</span> <span class="o">=</span> <span class="s">/%(lib_name)s/</span>
+<span class="na">git_url</span> <span class="o">=</span> <span class="s">https://gitlab.com/%(user)s/%(lib_name)s/tree/%(branch)s/</span>
+<span class="na">lib_path</span> <span class="o">=</span> <span class="s">%(lib_name)s</span>
+<span class="na">title</span> <span class="o">=</span> <span class="s">%(lib_name)s</span>
+
+<span class="c1">### OPTIONAL ### see https://github.com/fastai/nbdev/blob/master/settings.ini for examples</span>
+
+<span class="c1"># requirements = fastcore pandas</span>
+<span class="c1"># dev_requirements = </span>
+<span class="c1"># console_scripts =</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Example-gitlab-repo">Example gitlab repo<a class="anchor-link" href="#Example-gitlab-repo"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So, to bring all of this together i made an example repo on gitlab.com that you can look at and copy if your find it helpful.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is the repo: <a href="https://gitlab.com/robtheoceanographer/nbdev2_template">https://gitlab.com/robtheoceanographer/nbdev2_template</a></p>
+<p><img src="/images/copied_from_nb/images/nbdev_gitlab.PNG" alt="image" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is the rendered quarto docs: <a href="https://robtheoceanographer.gitlab.io/nbdev2_template/">https://robtheoceanographer.gitlab.io/nbdev2_template/</a></p>
+<p><img src="/images/copied_from_nb/images/quarto_gitlab.PNG" alt="image" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Issues">Issues<a class="anchor-link" href="#Issues"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Of course, there are a bunch of things that don't work when we move to gitlab. The two things that spring to mind are:</p>
+<ul>
+<li>nbdev_deploy: Deploy docs to GitHub Pages</li>
+<li>nbdev_ghp_deploy: Deploy docs in <code>doc_path</code> from settings.ini to GitHub Pages</li>
+</ul>
+<p>I recommend using the official github version and benefiting from all the functionality there rather than rolling your own on gitlab or elsewhere. This whole posit was just to show that it can be done. Well, that is my brain dump of what i've done so far and i'm sure i haven't covered everything so feel free to reach out and ask me questions if you like:  <a href="https://twitter.com/JohnsonRob">https://twitter.com/JohnsonRob</a></p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="RobTheOceanographer/fastpages"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/gitlab-nbdev.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Hi, I&#39;m Rob. I&#39;m a data scientist, environmental science researcher, model developer, and educator.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://gitlab.com/robtheoceanographer" target="_blank" title="robtheoceanographer"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#gitlab"></use></svg></a></li><li><a rel="me" href="https://github.com/RobTheOceanographer" target="_blank" title="RobTheOceanographer"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/JohnsonRob" target="_blank" title="JohnsonRob"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
