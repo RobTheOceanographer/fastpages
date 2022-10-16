@@ -5,7 +5,9 @@ permalink: /papers/
 ---
 Here is a list of my scientific publications for you to enjoy:
 
-- Nicole Hellessey, *__R. Johnson__*, J.A. Ericson, P.D. Nichols, S. Kawaguchi , S. Nicol, N. Hoem, and P. Virtue, "Antarctic Krill Lipid and Fatty acid Content Variability is associated to Satellite Derived Chlorophyll a and Sea Surface Temperatures", 2019, Nature: Scientific Reports, 2020, doi:10.1038/s41598-020-62800-7. [GetThePDF](https://github.com/RobTheOceanographer/fastpages/raw/master/docs/hellessey_etal_2020.pdf)
+- Pittman, N.A., P.G. Strutton, *__R. Johnson__*, R.J. Matear, A.J. Sutton,"Physical drivers of air-sea CO2 flux and new production in the equatorial Pacific", 2022 Global Biogeochemical Cycles, doi:10.1029/2021GB007121
+
+- Nicole Hellessey, *__R. Johnson__*, J.A. Ericson, P.D. Nichols, S. Kawaguchi, S. Nicol, N. Hoem, and P. Virtue, "Antarctic Krill Lipid and Fatty acid Content Variability is associated to Satellite Derived Chlorophyll a and Sea Surface Temperatures", 2019, Nature: Scientific Reports, 2020, doi:10.1038/s41598-020-62800-7. [GetThePDF](https://github.com/RobTheOceanographer/fastpages/raw/master/docs/hellessey_etal_2020.pdf)
 
 - Nicholas Pittman, P.G. Strutton, *__R. Johnson__*, R.J. Matear, "An assessment and improvement of satellite ocean color algorithms for the tropical Pacific Ocean" Journal of Geophysical Research: Oceans, 2019, doi:10.1029/2019JC015498. [GetThePDF](https://github.com/RobTheOceanographer/fastpages/raw/master/docs/pittman_etal_2019.pdf)
 
